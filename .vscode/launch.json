@@ -1,0 +1,21 @@
+{
+	"configurations": [
+		{
+			"type": "java",
+			"name": "SpringDataJpaApplication",
+			"request": "launch",
+			"mainClass": "com.berkayderin.starter.SpringDataJpaApplication",
+			"projectName": "spring-data-jpa"
+		},
+		{
+			"type": "java",
+			"name": "Spring Boot-SpringDataJpaApplication<spring-data-jpa>",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"mainClass": "com.berkayderin.springdatajpa.SpringDataJpaApplication",
+			"projectName": "spring-data-jpa",
+			"args": "",
+			"envFile": "${workspaceFolder}/.env"
+		}
+	]
+}
