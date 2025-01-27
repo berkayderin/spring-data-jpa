@@ -2,6 +2,8 @@ package com.berkayderin.entities;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class Student {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birth_date", nullable = true)
     private Date birthDate;
 }
