@@ -31,4 +31,12 @@ public class StudentServiceImpl implements IStudentService {
         return studentRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public void deleteStudentById(Integer id) {
+        if (studentRepository.existsById(id)) {
+            studentRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Öğrenci bulunamadı");
+        }
+    }
 }
