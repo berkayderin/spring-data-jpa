@@ -7,5 +7,5 @@ import com.berkayderin.entities.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
-
+    // buralara özel sorgular yazılabilir
 }

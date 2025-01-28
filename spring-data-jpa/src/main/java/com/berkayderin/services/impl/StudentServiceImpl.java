@@ -39,4 +39,20 @@ public class StudentServiceImpl implements IStudentService {
             throw new RuntimeException("Öğrenci bulunamadı");
         }
     }
+
+    @Override
+    public Student updateStudent(Integer id, Student updateStudent) {
+        Student dbStudent = getStudentById(id);
+
+        if (dbStudent == null) {
+            throw new RuntimeException("Öğrenci bulunamadı");
+        }
+
+        dbStudent.setFirstName(updateStudent.getFirstName());
+        dbStudent.setLastName(updateStudent.getLastName());
+        dbStudent.setBirthDate(updateStudent.getBirthDate());
+
+        return studentRepository.save(dbStudent);
+
+    }
 }
