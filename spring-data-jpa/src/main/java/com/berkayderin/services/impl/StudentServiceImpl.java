@@ -25,4 +25,10 @@ public class StudentServiceImpl implements IStudentService {
         return studentRepository.findAll();
     }
 
+    @Override
+    public Student getStudentById(Integer id) {
+        // öğrenci bulunamazsa null dönecek
+        return studentRepository.findById(id).orElse(null);
+    }
+
 }
