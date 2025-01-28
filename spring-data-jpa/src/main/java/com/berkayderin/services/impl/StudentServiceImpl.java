@@ -1,10 +1,15 @@
 package com.berkayderin.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.berkayderin.dto.DtoStudent;
+import com.berkayderin.dto.DtoStudentIU;
 import com.berkayderin.entities.Student;
 import com.berkayderin.repository.StudentRepository;
 import com.berkayderin.services.IStudentService;
@@ -16,19 +21,41 @@ public class StudentServiceImpl implements IStudentService {
     private StudentRepository studentRepository;
 
     @Override
-    public Student saveStudent(Student student) {
-        return studentRepository.save(student);
+    public DtoStudent saveStudent(DtoStudentIU dtoStudentIU) {
+        DtoStudent response = new DtoStudent();
+        Student student = new Student();
+        BeanUtils.copyProperties(dtoStudentIU, student);
+
+        student = studentRepository.save(student);
+        BeanUtils.copyProperties(student, response);
+
+        return response;
     }
 
     @Override
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
+    public List<DtoStudent> getAllStudents() {
+        List<DtoStudent> response = new ArrayList<>();
+        List<Student> students = studentRepository.findAll();
+
+        for (Student student : students) {
+            DtoStudent dtoStudent = new DtoStudent();
+            BeanUtils.copyProperties(student, dtoStudent);
+            response.add(dtoStudent);
+        }
+
+        return response;
     }
 
     @Override
-    public Student getStudentById(Integer id) {
-        // öğrenci bulunamazsa null dönecek
-        return studentRepository.findById(id).orElse(null);
+    public DtoStudent getStudentById(Integer id) {
+        DtoStudent response = new DtoStudent();
+        Student student = studentRepository.findById(id).orElse(null);
+
+        if (student != null) {
+            BeanUtils.copyProperties(student, response);
+        }
+
+        return response;
     }
 
     @Override
@@ -41,18 +68,20 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public Student updateStudent(Integer id, Student updateStudent) {
-        Student dbStudent = getStudentById(id);
+    public DtoStudent updateStudent(Integer id, DtoStudentIU dtoStudentIU) {
+        DtoStudent response = new DtoStudent();
+        Optional<Student> studentOptional = studentRepository.findById(id);
 
-        if (dbStudent == null) {
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            BeanUtils.copyProperties(dtoStudentIU, student);
+
+            student = studentRepository.save(student);
+            BeanUtils.copyProperties(student, response);
+        } else {
             throw new RuntimeException("Öğrenci bulunamadı");
         }
 
-        dbStudent.setFirstName(updateStudent.getFirstName());
-        dbStudent.setLastName(updateStudent.getLastName());
-        dbStudent.setBirthDate(updateStudent.getBirthDate());
-
-        return studentRepository.save(dbStudent);
-
+        return response;
     }
 }

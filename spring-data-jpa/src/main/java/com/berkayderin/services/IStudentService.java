@@ -2,17 +2,18 @@ package com.berkayderin.services;
 
 import java.util.List;
 
-import com.berkayderin.entities.Student;
+import com.berkayderin.dto.DtoStudent;
+import com.berkayderin.dto.DtoStudentIU;
 
 public interface IStudentService {
 
-    public Student saveStudent(Student student);
+    public DtoStudent saveStudent(DtoStudentIU student);
 
-    public List<Student> getAllStudents();
+    public List<DtoStudent> getAllStudents();
 
-    public Student getStudentById(Integer id);
+    public DtoStudent getStudentById(Integer id);
 
     public void deleteStudentById(Integer id);
 
-    public Student updateStudent(Integer id, Student updateStudent);
+    public DtoStudent updateStudent(Integer id, DtoStudentIU dtoStudentIU);
 }
