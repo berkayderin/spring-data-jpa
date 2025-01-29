@@ -17,6 +17,8 @@ import com.berkayderin.dto.DtoStudent;
 import com.berkayderin.dto.DtoStudentIU;
 import com.berkayderin.services.IStudentService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api")
 public class StudentControllerImpl implements IStudentController {
@@ -26,7 +28,9 @@ public class StudentControllerImpl implements IStudentController {
 
     @PostMapping("/students")
     @Override
-    public DtoStudent saveStudent(@RequestBody DtoStudentIU dtoStudentIU) {
+    public DtoStudent saveStudent(@RequestBody @Valid DtoStudentIU dtoStudentIU) { // @Valid: bu sayede dtoStudentIU
+                                                                                   // nesnesi içerisindeki alanların
+                                                                                   // validation'ı gerçekleşir.
         return studentServices.saveStudent(dtoStudentIU);
     }
 
