@@ -1,11 +1,15 @@
 package com.berkayderin.controller.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.berkayderin.configuration.DataSource;
 import com.berkayderin.configuration.GlobalProperties;
+import com.berkayderin.configuration.Server;
 
 @RestController
 @RequestMapping("/api")
@@ -14,14 +18,13 @@ public class PropertySourceController {
     @Autowired
     private GlobalProperties globalProperties;
 
-    @RequestMapping("/property")
+    @GetMapping("/property")
     public DataSource getDataSource() {
-        DataSource dataSource = new DataSource();
+        return null;
+    }
 
-        dataSource.setUrl(globalProperties.getUrl());
-        dataSource.setUsername(globalProperties.getUsername());
-        dataSource.setPassword(globalProperties.getPassword());
-
-        return dataSource;
+    @GetMapping("/servers")
+    public List<Server> getServers() {
+        return globalProperties.getServers();
     }
 }
